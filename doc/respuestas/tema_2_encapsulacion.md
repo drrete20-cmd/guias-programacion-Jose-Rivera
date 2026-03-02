@@ -1,4 +1,4 @@
-<!--
++<!--
 Posible prompt:
 <prompt>
 Tengo un cuestionario con preguntas sobre "Encapsulación". Debes tener en cuenta que los conocimientos previos que tengo (y por tanto tus respuestas deben ser adaptadas), son:
@@ -47,6 +47,7 @@ Por eso es importante pensar a largo plazo en la interfaz pública: ¿Qué opera
 Las **invariantes de clase** son condiciones que deben mantenerse verdaderas en todo momento para que el objeto sea válido. Por ejemplo, en una clase `CuentaBancaria`, una invariante sería "el saldo nunca puede ser negativo". En la clase `Punto` dentro de un círculo, una invariante sería "la distancia al origen debe ser menor que el radio del círculo". Las invariantes representan las reglas del negocio o la lógica del problema que la clase modela.
 
 La ocultación de información es crucial para mantener invariantes porque: Si el atributo `saldo` fuera público, cualquier código podría hacer `cuenta.saldo = -1000;` y violaría la invariante. Marcándolo privado y proporcionando un método `retirar(double monto)` que valida antes de cambiar el saldo, se garantiza que el invariante se mantiene. En C, esto era imposible de garantizar: tú podías hacer `cuenta.saldo = -1000;` accediendo directamente a la estructura. La ocultación permite que el diseñador de la clase sea el responsable exclusivo de mantener las invariantes, delegando al compilador el trabajo de impedir violaciones.
+
 
 
 ## 5. Pon un ejemplo de una clase `Punto` en `Java`, con dos coordenadas, `x` e `y`, de tipo `double`, con un método `calcularDistanciaAOrigen`, y que haga uso de la ocultación de información. ¿Cuál es la interfaz pública de la clase `Punto`? ¿Qué significa `public` y `private`?
@@ -129,7 +130,7 @@ Esta decisión tiene sentido: una instancia de `Punto` confía en otra instancia
 
 ### Respuesta
 
-Los **getters** (métodos de obtención) son métodos públicos que devuelven el valor de un atributo privado, permitiendo al usuario **leer** (pero no modificar) el estado del objeto. Un getter típicamente tiene la forma `public <tipo> get<NombreAtributo>()`, como `public double getX()`. Los **setters** (métodos de asignación) son métodos públicos que permiten cambiar el valor de un atributo privado desde afuera, pero con potencial de validación. Un setter típicamente tiene la forma `public void set<NombreAtributo>(<tipo> valor)`, como `public void setX(double x) { this.x = x; }`.
+Los **getters** (métodos de obtención) son métodos públicos que devuelven el valor de un atributo privado, permitiendo al usuario **leer** (pero no modificar) el estado del objeto. Un getter típicamente tiene la forma `public <tipo> get<NombreAtributo>()`, como `public double getX()`. Los **setters** (métodos de asignación) son métodos públicos que permiten cambiar el valor de un atributo privado desde afuera, pero con potencial de validación. Un setter típicamente tiene la forma `public void set<NombreAtributo>(<tipo> valor)`, como `public void setX(double x) { this.x = x; }`
 
 La utilidad es: Si un atributo fuera público, cualquiera podría asignarlo a cualquier valor sin restricciones. Con getters/setters, el diseñador de la clase puede validar: por ejemplo, un setter de edad podría rechazar valores negativos. En C, esto sería `int getEdad(Persona *p) { return p->edad; }` y `void setEdad(Persona *p, int edad) { if (edad >= 0) p->edad = edad; }`, pero Java lo formaliza con la convención de nombres. Una alternativa moderna es usar **records** en Java 14+ que generan getters automáticamente, pero setters deben ser explícitos.
 
