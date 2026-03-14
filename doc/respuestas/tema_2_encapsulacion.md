@@ -298,7 +298,7 @@ Las **clases wrapper** son clases que envuelven tipos primitivos para darles la 
 Las ventajas de los wrappers incluyen: (1) **Uniformidad**: A veces necesitas tratar primitivos como objetos (por ejemplo, en colecciones genéricas como `List<Integer>`). (2) **Métodos útiles**: `Integer` proporciona métodos como `parseInt()`, `toString()`, `compare()`. (3) **Null**: Un objeto wrapper puede ser `null`, lo cual no es posible con primitivos. Las desventajas son: (1) **Rendimiento**: Los wrappers toman más memoria y tienen overhead. (2) **Complejidad**: Autoboxing puede causar sorpresas si no se entiende bien. No todos los lenguajes OOP tienen tipos primitivos: **Python** no tiene primitivos (todo es objeto). **C#** tiene los dos (tipos primitivos `int` y clase wrapper `Int32`). **Ruby** y **Smalltalk** también tienen todo como objeto.
 
 
-## 22. ¿En POO qué es un **tipo de dato enumerado**? ¿En Java, un tipo de dato enumerado es una clase? ¿Qué ventajas tienen en términos de encapsulación los enumerados en Java?
+## 22. ¿En POO qué es un **tipo de dato enumerado**? ¿En Java, un tipo de dato enumerado es una clas? ¿Qué ventajas tienen en términos de encapsulación los enumerados en Java?
 
 ### Respuesta
 

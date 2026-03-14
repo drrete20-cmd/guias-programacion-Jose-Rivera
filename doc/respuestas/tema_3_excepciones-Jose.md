@@ -125,7 +125,6 @@ Esto reduce el acoplamiento y el código repetitivo, ya que sólo los niveles qu
 
 ## 6. En orientación a objetos, ¿las excepciones suelen ser objetos? ¿Qué ventajas tiene esto en términos de encapsulación? ¿Podemos entonces crear excepciones personalizadas?
 
-
 ### Respuesta
 En la mayoría de lenguajes orientados a objetos, las excepciones son instancias de clases que heredan de una base común. Al ser objetos, pueden encapsular información relevante (mensaje, estado, causa) y los detalles internos quedan ocultos.
 
@@ -135,7 +134,7 @@ Esto respeta el principio de encapsulación: el lanzador no necesita conocer có
 
 ## 7. En relación con las ventajas de la encapsulación, comparando el ejemplo en C con Java. ¿Qué **información esencial** lleva cualquier **objeto excepción** que es muy útil tener cuando se llega a un manejador?
 
-### Respuesta 
+### Respuesta
 Un objeto excepción suele portar al menos un mensaje descriptivo y un trazado de pila (stack trace) que indica dónde se produjo. Esa información es esencial en el manejador porque permite diagnosticar el origen del fallo sin necesidad de que cada función retorne códigos elaborados.
 
 En el ejemplo en C habría que agregar variables o punteros extra para llevar esa información, pero en Java el objeto `IllegalArgumentException` contiene la descripción y la pila, lo que simplifica la gestión y mantiene encapsulado el detalle del error.
