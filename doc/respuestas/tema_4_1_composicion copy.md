@@ -355,3 +355,105 @@ Bidireccional significa que cada lado conoce al otro: el departamento conoce sus
 Para el ejemplo, `Profesor` tendría un campo `Departamento departamento`, inicializado al agregarse. El `Departamento` tendría métodos que actualicen ambas partes, por ejemplo `agregarProfesor(Profesor p)` asigna `p.departamento = this` y `p.setDepartamento(this)` (inmutable con nueva instancia o método package). Al eliminar, se debe borrar la referencia del profesor al departamento. La clave es no permitir estados intermedios donde el profesor no coincida con la lista del departamento.
 
 Un patrón habitual es usar métodos de fábrica o package private para que solo `Departamento` pueda cambiar la referencia del profesor, y así preservar la invariancia bidireccional.
+```java
+public final class Profesor {
+    private final String nombre;
+    private Departamento departamento;  // Campo para relación bidireccional
+
+    public Profesor(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public Departamento getDepartamento() {
+        return departamento;
+    }
+
+    // Método package-private para que solo Departamento pueda cambiar
+    void setDepartamento(Departamento departamento) {
+        this.departamento = departamento;
+    }
+
+    @Override
+    public String toString() {
+        return "Profesor{" + "nombre='" + nombre + '\'' + '}';
+    }
+}
+
+public final class Departamento {
+    private static final int MAX = 50;
+    private final Profesor[] profesores = new Profesor[MAX];
+    private int cantidad = 0;
+    private Profesor director;
+
+    public Departamento(Profesor directorInicial) {
+        if (directorInicial == null) {
+            throw new IllegalArgumentException("El director inicial no puede ser nulo");
+        }
+        this.director = directorInicial;
+        profesores[cantidad++] = directorInicial;
+        directorInicial.setDepartamento(this);  // Establecer relación bidireccional
+    }
+
+    public void agregarProfesor(Profesor p) {
+        if (p == null) {
+            throw new IllegalArgumentException("Profesor no puede ser nulo");
+        }
+        if (cantidad >= MAX) {
+            throw new IllegalStateException("No se pueden agregar más profesores");
+        }
+        if (p.getDepartamento() != null) {
+            throw new IllegalArgumentException("El profesor ya pertenece a otro departamento");
+        }
+        profesores[cantidad++] = p;
+        p.setDepartamento(this);  // Establecer relación bidireccional
+    }
+
+    public void eliminarProfesor(int posicion) {
+        if (posicion < 0 || posicion >= cantidad) {
+            throw new IndexOutOfBoundsException("Posición inválida");
+        }
+        Profesor p = profesores[posicion];
+        if (p == director) {
+            throw new IllegalStateException("No se puede eliminar al director");
+        }
+        // Desplazar elementos
+        System.arraycopy(profesores, posicion + 1, profesores, posicion, cantidad - posicion - 1);
+        cantidad--;
+        p.setDepartamento(null);  // Romper relación bidireccional
+    }
+
+    public void cambiarDirector(Profesor nuevoDirector) {
+        if (nuevoDirector == null) {
+            throw new IllegalArgumentException("El nuevo director no puede ser nulo");
+        }
+        if (nuevoDirector.getDepartamento() != this) {
+            throw new IllegalArgumentException("El nuevo director debe pertenecer a este departamento");
+        }
+        this.director = nuevoDirector;
+    }
+
+    public int getCantidadProfesores() {
+        return cantidad;
+    }
+
+    public Profesor getProfesor(int posicion) {
+        if (posicion < 0 || posicion >= cantidad) {
+            throw new IndexOutOfBoundsException("Posición inválida");
+        }
+        return profesores[posicion];
+    }
+
+    public Profesor getDirector() {
+        return director;
+    }
+
+    @Override
+    public String toString() {
+        return "Departamento{director=" + director.getNombre() + ", cantidad=" + cantidad + '}';
+    }
+}
+```

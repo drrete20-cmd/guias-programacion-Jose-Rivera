@@ -24,7 +24,7 @@ En el ejemplo, se define una clase Soldado con un atributo privado nombre y un m
 public class Soldado {
     private String nombre;
     
-    public Soldado(String nombre) {
+    public Soldado(String nombre) { 
         this.nombre = nombre;
     }
     
@@ -75,6 +75,64 @@ Al crear una instancia de una subclase, se ejecutan dos constructores: primero e
 
 Si la clase base no tiene un constructor sin parámetros visible, es obligatorio llamar a `super` con los parámetros requeridos en el constructor de la subclase. Esto asegura que la superclase se inicialice correctamente, ya que Java no proporciona automáticamente un constructor por defecto si se define uno con parámetros. Omitir esta llamada resultaría en un error de compilación.
 
+```java
+public class Soldado {
+    private String nombre;
+
+    public Soldado(String nombre) {
+        this.nombre = nombre;
+        System.out.println("Constructor de Soldado ejecutado para: " + nombre);
+    }
+
+    public void saludar() {
+        System.out.println("¡Saludos! Soy " + nombre);
+    }
+}
+
+public class Artillero extends Soldado {
+    private int numCohetes;
+
+    public Artillero(String nombre, int numCohetes) {
+        super(nombre);  // Llama al constructor de la superclase
+        this.numCohetes = numCohetes;
+        System.out.println("Constructor de Artillero ejecutado con " + numCohetes + " cohetes");
+    }
+
+    public int getNumCohetes() {
+        return numCohetes;
+    }
+}
+
+public class Zapador extends Soldado {
+    private int numExplosivos;
+
+    public Zapador(String nombre, int numExplosivos) {
+        super(nombre);  // Llama al constructor de la superclase
+        this.numExplosivos = numExplosivos;
+        System.out.println("Constructor de Zapador ejecutado con " + numExplosivos + " explosivos");
+    }
+
+    public int getNumExplosivos() {
+        return numExplosivos;
+    }
+}
+
+// Ejemplo de uso:
+public class Main {
+    public static void main(String[] args) {
+        Artillero artillero = new Artillero("Juan", 5);
+        // Salida:
+        // Constructor de Soldado ejecutado para: Juan
+        // Constructor de Artillero ejecutado con 5 cohetes
+
+        Zapador zapador = new Zapador("Pedro", 3);
+        // Salida:
+        // Constructor de Soldado ejecutado para: Pedro
+        // Constructor de Zapador ejecutado con 3 explosivos
+    }
+}
+```
+
 ## 3. Respecto a los objetos de subclases en memoria, los atributos privados de la superclase, ¿forman parte de una instancia de la subclase en memoria? En caso afirmativo ¿implica que se puedan usar desde el código de la subclase? Explícalo con el ejemplo de `Soldado` y alguna de sus subclases.
 
 ### Respuesta
@@ -117,8 +175,7 @@ El operador instanceof se utiliza para comprobar si un objeto es una instancia d
 ```java
 Soldado[] soldados = {new Artillero("Juan", 5), new Zapador("Pedro", 3)};
 for (Soldado s : soldados) {
-    if (s instanceof Artillero) {
-        Artillero a = (Artillero) s; // downcasting
+    if (s instanceof Artillero a) { // downcasting
         System.out.println("Cohetes: " + a.getNumCohetes());
     }
 }
