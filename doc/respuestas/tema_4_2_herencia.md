@@ -229,7 +229,8 @@ En muchos lenguajes orientados a objetos, existe una clase base común para todo
 
 ### Respuesta
 
-La herencia múltiple permite que una clase herede de más de una superclase directamente, combinando atributos y métodos de múltiples padres. Esto puede llevar a conflictos si ambas superclases tienen métodos con el mismo nombre. En Java, no existe herencia múltiple de clases para evitar estos problemas de ambigüedad, pero se puede simular mediante interfaces, que permiten implementar múltiples contratos sin herencia de implementación.
+La herencia múltiple permite que una clase herede de más de una superclase directamente, combinando atributos y métodos de múltiples padres. Esto puede llevar a conflictos si ambas superclases tienen métodos con el mismo nombre.
+En Java, no existe herencia múltiple de clases para evitar estos problemas de ambigüedad, pero se puede simular mediante interfaces, que permiten implementar múltiples contratos sin herencia de implementación.
 
 
 ## 9. Las excepciones en los lenguajes orientados a objetos son objetos. Por tanto, se pueden crear excepciones personalizadas. Pon un ejemplo en Java de una excepción personalizada (`UsuarioNoEncontradoException`), que sea *no controlada* y que además este compuesto con un `Usuario`, para saber qué `Usuario` dio el problema. Permite además que se pueda incluir la causa, es decir, sobrecarga el constructor para tener una versión que permita añadir la causa subyacente. 
@@ -296,6 +297,11 @@ La composición promueve el principio de "programar contra interfaces", lo que r
 La herencia rompe la encapsulación porque las subclases pueden acceder a elementos protegidos de la superclase, exponiendo detalles internos que deberían permanecer ocultos. Esto crea una dependencia fuerte entre la superclase y sus subclases, donde cambios en la implementación interna de la superclase pueden afectar a las subclases de formas inesperadas.
 
 En contraste, la composición mantiene la encapsulación al interactuar con objetos a través de interfaces públicas, sin acceder a detalles internos. Esto reduce el riesgo de efectos secundarios y facilita la evolución independiente de las clases.
+
+EDIT: Solo usar herencia cuando necesitas la compatibilidad de tipos.
+Usar herencia implica un fuerte acoplamiento desde la clase derivada hacia la clase base.
+La clase derivada depende mucho de la base
+Cambions internos en la clase base podrian llegar a afectar a la derivada.
 
 
 ## 13. Pongamos un ejemplo de dos alternativas para lo mismo. Tenemos un `Estudiante` y un `Trabajador`, ambos tienen datos en común: el DNI y el nombre. Modelemos esto de dos formas: uno por herencia, con una superclase `Persona`, y otro con composición, con una clase `DatosPersonales`. Se debe recibir una instancia de `DatosPersonales` en el constructor de la clase `Estudiante` y `Trabajador`.
