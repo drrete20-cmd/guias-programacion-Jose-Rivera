@@ -237,6 +237,8 @@ La clase `Linea` demuestra el verdadero poder del polimorfismo: acepta referenci
 
 La herencia de interfaces en Java permite que una interfaz extienda otra interfaz usando `extends`. Esto permite crear jerarquías de interfaces donde una interfaz más específica hereda todos los métodos de una interfaz más general y añade nuevos métodos. Existe herencia múltiple de interfaces: una interfaz puede extender varias interfaces simultáneamente.
 
+En Java no hay herencia múltiple de clases, pero sí de interfaces, lo que permite a una clase implementar múltiples interfaces y, por lo tanto, cumplir con múltiples contratos.
+
 El siguiente ejemplo muestra una interfaz `Fichero` básica que es extendida por `FicheroEscribible`:
 
 ```java
