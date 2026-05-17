@@ -62,6 +62,8 @@ import java.util.function.Function;
 Function<String, String> aMayusculas = s -> s.toUpperCase();
 System.out.println(aMayusculas.apply("hola mundo"));
 ```
+Apply solo si se usa Function.
+El primer parametro de Function es el tipo de entrada, el segundo es el tipo de salida. En este caso, ambos son String, pero podrían ser distintos.
 
 ## 3. ¿Qué es el **paradigma funcional**? ¿Por qué a algunos lenguajes orientados a objetos como Java 8, se les llama multi-paradigma? ¿Qué quiere decir que las funciones son "ciudadanos de primera clase"?
 
